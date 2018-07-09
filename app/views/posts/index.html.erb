@@ -1,0 +1,27 @@
+<h1>Posts page</h1>
+
+<!-- posts_new_path = /posts/new -->
+<%= link_to 'New Post', posts_new_path %>
+
+<table class="table">  
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Post title</th>
+      <th scope="col">Options</th>
+    </tr>
+</table>
+<% @posts.each do |post| %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td scope="row" style="padding:0 auto;"><%= post.id %></th>
+        <td><%= post.title %></td>
+        <td class="text-center">
+          <%= link_to 'Show', post, class: 'btn btn-primary' %>
+          <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-primary' %>
+          <%= link_to 'Delete', delete_post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
