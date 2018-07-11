@@ -16,7 +16,7 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require_tree .
+$(document).ready(function(){
+    $("#flash" ).fadeOut(4000);
+});
 
-function hide_flash(){
-  
-}

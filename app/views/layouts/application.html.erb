@@ -4,17 +4,24 @@
     <title>Posts</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%= render 'posts/navbar' %>
     <div id="flash">
       <% flash.each do |key, value| %>
-        <div id="flash-<% key %>"><%= value %></div>
+        <% if notice.present? %>
+          <div id="flash-<%= key %>" class="alert alert-success" role="alert"><%= value %></div>
+          <% next %>
+        <% end %>
+        <div id="flash-<%= key %>" class="alert alert-danger" role="alert"><%= value %></div>
       <% end %>
     </div>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
