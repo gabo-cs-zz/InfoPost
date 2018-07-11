@@ -15,7 +15,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: "Post #{@post.id} successfully created."
     else 
-      flash[:alert] = 'Post was not created.'
+      flash.now[:alert] = 'Post was not created.'
       render :new
     end
   end
@@ -28,10 +28,10 @@ class PostsController < ApplicationController
   
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: "Post #{@post.id} successfully updated."
+      redirect_to posts_path, notice: "Post #{@post.id} successfully updated."
     else
       flash[:alert] = 'Post was not updated.'
-      render :new
+      redirect_to edit_post_path
     end
   end
   
