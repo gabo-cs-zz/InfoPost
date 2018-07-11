@@ -10,16 +10,7 @@
   </head>
 
   <body>
-    <%= render 'posts/navbar' %>
-    <div id="flash">
-      <% flash.each do |key, value| %>
-        <% if notice.present? %>
-          <div id="flash-<%= key %>" class="alert alert-success" role="alert"><%= value %></div>
-          <% next %>
-        <% end %>
-        <div id="flash-<%= key %>" class="alert alert-danger" role="alert"><%= value %></div>
-      <% end %>
-    </div>
+    <%= render 'posts/header' %>
     <div class="container">
       <%= yield %>
     </div>
