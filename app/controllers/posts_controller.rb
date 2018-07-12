@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :delete]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.where(status: 1)
     # @posts = Post.all.order('created_at DESC')
   end
   
@@ -38,6 +38,16 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to posts_path, notice: "Post #{@post.id} was successfully deleted."
+  end
+  
+  def delete
+    @post.status = 0
+    if @post.save
+      redirect_to posts_path, notice: "Post #{@post.id} successfully deleted."
+    else
+      flash[:alert] = 'Post was not updated.'
+      redirect_to edit_post_path
+    end
   end
   
   def set_post

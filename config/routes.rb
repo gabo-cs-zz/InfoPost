@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 #   get 'posts/:id', to: 'posts#show', as: :post
 #   get 'posts/:id/edit', to: 'posts#edit', as: :edit_post
 #   patch 'posts/:id', to: 'posts#update'
-#   delete 'posts/:id', to: 'posts#destroy', as: :delete_post
+  delete 'posts/:id', to: 'posts#delete', as: :delete_post
   resources :posts
 end
+
