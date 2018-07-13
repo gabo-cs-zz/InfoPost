@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :delete]
 
   def index
-    @posts = Post.all.where(status: 1)
+    @posts = Post.where(status: 1).paginate(page: params[:page], per_page: 7)
+    # @posts = Post.all.where(status: 1)
     # @posts = Post.all.order('created_at DESC')
   end
   
@@ -40,12 +41,13 @@ class PostsController < ApplicationController
     redirect_to posts_path, notice: "Post #{@post.id} was successfully deleted."
   end
   
+  # Soft Delete
   def delete
     @post.status = 0
     if @post.save
       redirect_to posts_path, notice: "Post #{@post.id} successfully deleted."
     else
-      flash[:alert] = 'Post was not updated.'
+      flash[:alert] = 'Post was not deleted.'
       redirect_to edit_post_path
     end
   end
