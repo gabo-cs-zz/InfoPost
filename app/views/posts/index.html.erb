@@ -1,10 +1,23 @@
 <!-- posts_new_path = /posts/new -->
+<h3>Posts</h3>
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter by category
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="/posts?category=0">Web</a>
+    <a class="dropdown-item" href="/posts?category=1">Mobile</a>
+    <a class="dropdown-item" href="/posts?category=2">Desktop</a>
+  </div>
+</div>
+<br>
   <table class="table">
     <thead>
        <tr>
         <th scope="col">ID</th>
         <th scope="col">Post title</th>
         <th scope="col">Datetime (UTC)</th>
+         <th scope="col">Category</th>
         <th scope="col">Options</th>
       </tr>
     </thead>
@@ -14,10 +27,11 @@
         <td scope="col"><%= post.id %></td>
         <td scope="col"><%= post.title %></td>
         <td scope="col"><%= post.created_at.strftime('%Y/%m/%d') +' - '+ post.created_at.strftime("%I:%m %p") %></td>
+        <td scope="col"><%= post.category %></td>
         <td scope="row">
           <%= link_to 'Show', post, class: 'btn btn-primary' %>
           <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-primary' %>
-          <%= link_to 'Delete', delete_post_path(post), method: :delete, data: { confirm: 'ARE YOU SURE?' }, class: 'btn btn-danger'%>
+          <%= link_to 'Delete', post, method: :delete, data: { confirm: 'ARE YOU SURE?' }, class: 'btn btn-danger'%>
         </td>
       </tr>
       <% end %>

@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :delete]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
   def index
-    @posts = Post.where(status: 1).paginate(page: params[:page], per_page: 7)
+    @posts = Post.where(status: 1, user_id: current_user.id).paginate(page: params[:page], per_page: 5)  
     # @posts = Post.all.where(status: 1)
     # @posts = Post.all.order('created_at DESC')
   end
@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       redirect_to posts_path, notice: "Post #{@post.id} successfully created."
     else 
@@ -37,20 +38,10 @@ class PostsController < ApplicationController
     end
   end
   
-  def destroy
-    @post.destroy
-    redirect_to posts_path, notice: "Post #{@post.id} was successfully deleted."
-  end
-  
   # Soft Delete
-  def delete
-    @post.status = 0
-    if @post.save
-      redirect_to posts_path, notice: "Post #{@post.id} successfully deleted."
-    else
-      flash[:alert] = 'Post was not deleted.'
-      redirect_to edit_post_path
-    end
+  def destroy
+    @post.soft_delete
+    redirect_to posts_path, notice: "Post #{@post.id} was successfully deleted."
   end
   
   def set_post
@@ -59,6 +50,6 @@ class PostsController < ApplicationController
   
   private
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :category)
   end
 end

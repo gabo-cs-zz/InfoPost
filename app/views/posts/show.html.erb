@@ -2,4 +2,4 @@
 <p class="text-justify"><%= @post.body%></p>
 <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
 <%= link_to "Back", :back, class: 'btn btn-secondary' %>
-<%= link_to 'Delete', delete_post_path(@post), method: :delete, data: { confirm: 'ARE YOU SURE?' }, class: 'btn btn-danger'%>
+<%= link_to 'Delete', @post, method: :delete, data: { confirm: 'ARE YOU SURE?' }, class: 'btn btn-danger'%>
