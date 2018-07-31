@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 #   get 'posts/:id', to: 'posts#show', as: :post
 #   get 'posts/:id/edit', to: 'posts#edit', as: :edit_post
 #   patch 'posts/:id', to: 'posts#update'
-  resources :posts, :home, :user
+  get 'my_profile', to: 'my_profiles#show', as: :my_profile
+  resources :posts, :home, :user, :my_profile
 end
 
